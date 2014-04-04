@@ -1331,7 +1331,7 @@ localsub(const time_t * const timep, const int_fast32_t offset,
     */
     result = timesub(&t, ttisp->tt_gmtoff, sp, tmp);
     tmp->tm_isdst = ttisp->tt_isdst;
-    tzname[tmp->tm_isdst] = &sp->chars[ttisp->tt_abbrind];
+    tzname[tmp->tm_isdst] = (char*)&sp->chars[ttisp->tt_abbrind];
 #ifdef TM_ZONE
     tmp->TM_ZONE = &sp->chars[ttisp->tt_abbrind];
 #endif /* defined TM_ZONE */
@@ -2207,7 +2207,7 @@ static int __bionic_open_tzdata_path(const char* path_prefix_variable, const cha
 
   if (TEMP_FAILURE_RETRY(lseek(fd, specific_zone_offset, SEEK_SET)) == -1) {
     fprintf(stderr, "%s: could not seek to %ld in \"%s\": %s\n",
-            __FUNCTION__, specific_zone_offset, path, strerror(errno));
+            __FUNCTION__, (long)specific_zone_offset, path, strerror(errno));
     close(fd);
     return -1;
   }
