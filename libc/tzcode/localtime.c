@@ -10,6 +10,8 @@
 
 /*LINTLIBRARY*/
 
+#include <unistd.h>
+
 #include "private.h"
 #include "tzfile.h"
 #include "fcntl.h"
